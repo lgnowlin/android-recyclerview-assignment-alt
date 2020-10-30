@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ualr.recyclerviewassignment.R;
 import com.ualr.recyclerviewassignment.model.Inbox;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class AdapterList extends RecyclerView.Adapter {
@@ -41,6 +43,7 @@ public class AdapterList extends RecyclerView.Adapter {
         viewHolder.message.setText(i.getMessage());
         viewHolder.date.setText(i.getDate());
         viewHolder.email.setText(i.getEmail());
+        viewHolder.initial.setText(i.getInitials());
     }
 
     @Override
@@ -61,6 +64,7 @@ public class AdapterList extends RecyclerView.Adapter {
         public TextView message;
         public TextView date;
         public TextView email;
+        public TextView initial;
         public View lyt_parent;
 
         public InboxViewHolder(@NonNull View v) {
@@ -69,6 +73,7 @@ public class AdapterList extends RecyclerView.Adapter {
             message = v.findViewById(R.id.message);
             date = v.findViewById(R.id.date);
             email = v.findViewById(R.id.email);
+            initial = v.findViewById(R.id.initial);
             lyt_parent = v.findViewById(R.id.lyt_parent);
 
             lyt_parent.setOnClickListener(new View.OnClickListener() {

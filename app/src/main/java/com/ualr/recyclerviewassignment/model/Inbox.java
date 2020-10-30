@@ -5,6 +5,7 @@ public class Inbox {
     private String email;
     private String message;
     private String date;
+    private String initials;
     private boolean selected;
 
     public Inbox() {
@@ -41,6 +42,14 @@ public class Inbox {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getInitials() {
+        return initials;
+    }
+
+    public void setInitials(String from) {
+        this.initials = initials;
     }
 
     public boolean isSelected() {

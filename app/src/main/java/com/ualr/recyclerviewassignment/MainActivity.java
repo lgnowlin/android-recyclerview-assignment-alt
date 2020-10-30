@@ -5,11 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+
 import com.ualr.recyclerviewassignment.adapter.AdapterList;
-import com.ualr.recyclerviewassignment.databinding.ActivityListMultiSelectionBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 import com.ualr.recyclerviewassignment.model.Inbox;
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton mFAB;
     private static final int TOP_POSITION = 0;
-    private ActivityListMultiSelectionBinding binding;
     private AdapterList adapter;
     private List<Inbox> dataSource;
     private RecyclerView recyclerView;
@@ -53,13 +51,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         // TODO 04. Define the layout of each item in the list
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
 
         adapter = new AdapterList(this, dataSource);
-        binding.recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
         mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {

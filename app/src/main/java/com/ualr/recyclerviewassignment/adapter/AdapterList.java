@@ -13,14 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ualr.recyclerviewassignment.R;
 import com.ualr.recyclerviewassignment.model.Inbox;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class AdapterList extends RecyclerView.Adapter {
     private List<Inbox> mItems;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener mOnThumbnailClickListener;
 
     public AdapterList(Context context, List<Inbox> items){
         this.mItems = items;
@@ -36,7 +35,7 @@ public class AdapterList extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         InboxViewHolder viewHolder = (InboxViewHolder)holder;
         Inbox i = mItems.get(position);
         viewHolder.from.setText(i.getFrom());
@@ -44,6 +43,21 @@ public class AdapterList extends RecyclerView.Adapter {
         viewHolder.date.setText(i.getDate());
         viewHolder.email.setText(i.getEmail());
         viewHolder.initial.setText(i.getInitials());
+
+        if(i.isSelected()){
+            viewHolder.lyt_parent.setBackgroundColor(mContext.getResources().getColor(android.R.color.darker_gray));
+            viewHolder.initial.setBackground(mContext.getDrawable(R.drawable.ic_delete_24px));
+            viewHolder.initial.setText("");
+        } else {
+            viewHolder.lyt_parent.setBackgroundColor(mContext.getResources().getColor(android.R.color.white));
+            viewHolder.initial.setBackground(mContext.getDrawable(R.drawable.shape_circle));
+            viewHolder.initial.setText(i.getInitials());
+        }
+    }
+
+    public void toggleItemState(int position){
+        this.mItems.get(position).toggleSelection();
+        notifyItemChanged(position);
     }
 
     @Override
@@ -57,6 +71,10 @@ public class AdapterList extends RecyclerView.Adapter {
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener){
         this.mOnItemClickListener = mItemClickListener;
+    }
+
+    public void setOnThumbnailClickListener(final OnItemClickListener mThumbnailClickListener){
+        this.mOnThumbnailClickListener = mThumbnailClickListener;
     }
 
     public class InboxViewHolder extends RecyclerView.ViewHolder {
@@ -82,11 +100,18 @@ public class AdapterList extends RecyclerView.Adapter {
                     mOnItemClickListener.OnItemClick(view, mItems.get(getLayoutPosition()), getLayoutPosition());
                 }
             });
+
+            initial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnThumbnailClickListener.OnItemClick(v, mItems.get(getLayoutPosition()), getLayoutPosition());
+                }
+            });
         }
     }
 
         public void addItem(int position, Inbox inbox){
-            mItems.add(0, inbox);
+            mItems.add(position, inbox);
             notifyItemInserted(position);
         }
 

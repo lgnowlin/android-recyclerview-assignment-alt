@@ -48,7 +48,7 @@ public class Inbox {
         return initials;
     }
 
-    public void setInitials(String from) {
+    public void setInitials(String initials) {
         this.initials = initials;
     }
 
